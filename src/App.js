@@ -11,7 +11,8 @@ class App extends React.Component {
         // { name: "Monster1", id: "1" },
         // { name: "Monster2", id: "2" },
         // { name: "Monster3", id: "3" }
-      ]
+      ],
+      searchString: ''
     }
   }
 
@@ -22,9 +23,17 @@ class App extends React.Component {
   }
 
   render() {
+    const { monsters, searchString } = this.state;
+    const filteredMonsters = monsters.filter(monster =>
+      monster.name.toLowerCase().includes(searchString.toLowerCase())
+    )
     return (
       <div className="App">
-        <CardList monsters = {this.state.monsters} />
+        <input
+          type='search'
+          placeholder='Search Monsters'
+          onChange={e => this.setState({ searchString: e.target.value })} />
+        <CardList monsters={filteredMonsters} />
       </div>
     );
   }
