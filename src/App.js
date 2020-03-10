@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends React.Component {
@@ -7,28 +6,29 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      string: "Hello Shrikant"
+      monsters: [
+        // { name: "Monster1", id: "1" },
+        // { name: "Monster2", id: "2" },
+        // { name: "Monster3", id: "3" }
+      ]
     }
+  }
+
+  async componentDidMount() {
+    let users = await fetch("https://jsonplaceholder.typicode.com/users");
+    users = await users.json();
+    // console.log('==========',);
+    this.setState({monsters: users});
+
+    // fetch("https://jsonplaceholder.typicode.com/users")
+    // .then()
   }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-        </p>
-    <p>{ this.state.string }</p>
-    <button onClick={ ()=> this.setState({string: "Hello Shri"})}>Click Here</button>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-        </a>
-        </header>
+        {
+          this.state.monsters.map(monster => <h1 key={monster.id}> { monster.name } </h1>)
+        }
       </div>
     );
   }
