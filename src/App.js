@@ -17,6 +17,10 @@ class App extends React.Component {
     }
   }
 
+  handleChange = e => {
+    this.setState({ searchString: e.target.value })
+  }
+
   async componentDidMount() {
     let users = await fetch("https://jsonplaceholder.typicode.com/users");
     users = await users.json();
@@ -30,10 +34,11 @@ class App extends React.Component {
     )
     return (
       <div className="App">
-      <SearchBox 
-      placeholder= 'Search Monster'
-      handleChange = {e => this.setState({searchString: e.target.value})}
-      />
+      <h1> Monsters Rolodex</h1>
+        <SearchBox
+          placeholder='Search Monster'
+          handleChange={this.handleChange}
+        />
         <CardList monsters={filteredMonsters} />
       </div>
     );
